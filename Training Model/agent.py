@@ -1,4 +1,7 @@
+import os
+import joblib
 import pandas as pd
+
 from pythainlp.corpus.common import thai_stopwords
 from pythainlp import word_tokenize
 from sklearn.model_selection import train_test_split
@@ -6,7 +9,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score
 from function import split_text
-import joblib
 
 # โหลดข้อมูลจาก URL ลงใน DataFrame
 df = pd.read_csv(
@@ -80,6 +82,10 @@ test_predictions = lr.predict(test_bow)
 print("Test Data Metrics:")
 print(f"Accuracy: {accuracy_score(test_predictions, y_test)}")
 print(classification_report(test_predictions, y_test))
+
+# ตรวจสอบและสร้างไดเรกทอรีหากไม่มี
+if not os.path.exists("model"):
+    os.makedirs("model")
 
 joblib.dump(lr, "model/sentiment_model.pkl")
 joblib.dump(cvec, "model/vectorizer.pkl")
