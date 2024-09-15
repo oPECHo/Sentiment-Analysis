@@ -5,3 +5,5 @@ install package
 - flask
 - pandas 
 - pythainlp 
+- joblib
+- scikit-learn
